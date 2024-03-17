@@ -1,5 +1,5 @@
 # godot-zig
-Zig bindings for Godot 4
+Zig 0.11.0 bindings for Godot 4
 
 ## Prerequisites:
 1. zig master build
