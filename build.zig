@@ -39,12 +39,12 @@ pub fn build(b: *std.Build) void {
     run_step.dependOn(&run_cmd.step);
 }
 
-pub fn createBindStep(b: *std.Build, target: std.Build.ResolvedTarget) *std.Build.Step {
+pub fn createBindStep(b: *std.Build, target: std.zig.CrossTarget) *std.Build.Step {
     const dump_cmd = b.addSystemCommand(&.{
         "godot", "--dump-extension-api", "--dump-gdextension-interface",
     });
     const out_path = b.pathJoin(&.{ thisDir(), api_path });
-    dump_cmd.setCwd(.{ .cwd_relative = out_path });
+    dump_cmd.cwd = out_path;
 
     const binding_generator = b.addExecutable(.{ .name = "binding_generator", .target = target, .root_source_file = .{ .path = b.pathJoin(&.{ thisDir(), "binding_generator/main.zig" }) } });
     binding_generator.addIncludePath(.{ .path = out_path });
